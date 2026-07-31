@@ -20,26 +20,26 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do código
+      - name: 1. Checkout do código
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: 2. Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Instalar dependências
+      - name: 3. Instalar dependências
         run: npm ci
 
-      - name: Gerar Build (Vite)
+      - name: 4. Gerar Build de Produção
         run: npm run build
 
-      - name: Upload dos artefatos
+      - name: 5. Upload dos artefatos estáticos
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
 
-      - name: Publicar no GitHub Pages
+      - name: 6. Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
